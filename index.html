@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Something is wrong</title>
+    <!-- Подключаем иконки -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Подключаем отдельный файл стилей -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="viewport-wrapper" id="viewport">
+        <!-- Верхняя панель -->
+        <header class="top-nav" id="topNav">
+            <a href="https://www.instagram.com/ssssss2k/" target="_blank" class="mono-btn">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://t.me/ssssss2k" target="_blank" class="mono-btn">
+                <i class="fab fa-telegram-plane"></i> Telegram
+            </a>
+            <a href="https://www.youtube.com/@ssssss2k" target="_blank" class="mono-btn">
+                <i class="fab fa-youtube"></i> YouTube
+            </a>
+        </header>
+
+        <main class="middle-section">
+            <svg class="lines-bg" id="linesSvg" viewBox="0 0 900 450" preserveAspectRatio="none">
+                <path d="M 80,0 Q 200,225 120,450" stroke="#ffffff" stroke-width="2.5" fill="none" />
+                <path d="M 210,0 C 230,150 170,300 190,450" stroke="#ffffff" stroke-width="3" fill="none" />
+                <path d="M 320,0 Q 280,225 300,450" stroke="#ffffff" stroke-width="2.5" fill="none" />
+                <path d="M 380,0 C 350,150 360,300 370,450" stroke="#ffffff" stroke-width="3" fill="none" />
+                
+                <path d="M 520,0 C 540,150 530,300 550,450" stroke="#ffffff" stroke-width="3" fill="none" />
+                <path d="M 600,0 Q 650,225 620,450" stroke="#ffffff" stroke-width="2.5" fill="none" />
+                <path d="M 700,0 C 750,150 750,300 690,450" stroke="#ffffff" stroke-width="3" fill="none" />
+                <path d="M 780,0 Q 820,225 800,450" stroke="#ffffff" stroke-width="2.5" fill="none" />
+            </svg>
+            
+            <div class="fade-overlay fade-top" id="fadeTop"></div>
+            <div class="fade-overlay fade-bottom" id="fadeBottom"></div>
+
+            <!-- Начальный текст и подсказка скролла -->
+            <div class="intro-text" id="introText">the end is the beginning of something new</div>
+            <div class="scroll-hint" id="scrollHint">
+                <span>scroll</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+
+            <div class="center-text" id="centerText">Something is wrong<span class="blinking-dot">.</span></div>
+        </main>
+
+        <footer class="bottom-bar" id="bottomBar">
+            <p>Made by ssssss2k<br>2026</p>
+        </footer>
+    </div>
+
+    <!-- Подключаем отдельный файл скрипта -->
+    <script src="script.js"></script>
+</body>
+</html>
