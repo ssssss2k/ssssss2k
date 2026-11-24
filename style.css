@@ -1,169 +1,168 @@
-* {
-    box-sizing: border-box;
-}
-
-html,
-body {
-    margin: 0;
-    min-width: 320px;
-    min-height: 100%;
-}
-
-body {
-    min-height: 100vh;
-
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-
-    background: #000;
-    color: #fff;
-
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Helvetica Neue",
-        Arial,
-        sans-serif;
-
+:root {
+    color-scheme: dark;
+    --background: #080808;
+    --primary: #EEEEEE;
+    --secondary: #AAAAAA;
+    --muted: #606060;
+    --paper: #F0F0EE;
+    --gutter: clamp(48px, 4.45vw, 64px);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-synthesis: none;
     -webkit-font-smoothing: antialiased;
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    min-width: 0;
+    min-height: 100%;
+    background: var(--background);
+    color: var(--primary);
 }
 
-
-/* Header */
-
-header {
-    padding: 26px 20px;
-
-    text-align: center;
+.identity {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: var(--gutter);
+    padding-top: max(var(--gutter), env(safe-area-inset-top));
+    padding-right: max(var(--gutter), env(safe-area-inset-right));
+    padding-bottom: max(var(--gutter), env(safe-area-inset-bottom));
+    padding-left: max(var(--gutter), env(safe-area-inset-left));
 }
 
 .brand {
-    font-size: 20px;
-    font-weight: 600;
-
-    letter-spacing: -0.04em;
+    width: fit-content;
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.035em;
 }
 
-
-/* Main */
-
-main {
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 38px;
-
-    padding: 30px 20px;
-
-    text-align: center;
+.statement {
+    display: grid;
+    align-content: center;
+    min-width: 0;
+    padding-block: 28px clamp(52px, 10vh, 112px);
 }
 
 h1 {
-    max-width: 900px;
-
     margin: 0;
-
-    font-size: clamp(30px, 5vw, 66px);
+    font-size: clamp(32px, 5.5vw, 88px);
     font-weight: 400;
-
-    line-height: 1.1;
-
-    letter-spacing: -0.05em;
+    line-height: 1.08;
+    letter-spacing: -0.045em;
+    overflow-wrap: normal;
 }
 
-
-/* Socials */
-
-nav {
+.bottom {
     display: flex;
-
-    gap: 18px;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 24px;
 }
 
-nav a {
-    width: 50px;
-    height: 50px;
-
-    display: grid;
-    place-items: center;
-
-    border: 1px solid #222;
-    border-radius: 50%;
-
-    transition:
-        border-color 0.2s ease,
-        transform 0.2s ease;
+.socials {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 44px;
+    row-gap: 12px;
 }
 
-nav a:hover {
-    border-color: #666;
-
-    transform: translateY(-2px);
+.socials a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 5px;
+    color: var(--secondary);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 200ms ease;
 }
 
-svg {
-    width: 21px;
-    height: 21px;
+.arrow {
+    display: inline-block;
+    font-size: 0.9em;
+    line-height: 1;
+    transition: transform 200ms ease;
 }
 
-.instagram {
-    fill: none;
-
-    stroke: currentColor;
-    stroke-width: 1.8;
+@media (hover: hover) {
+    .socials a:hover { color: var(--primary); }
+    .socials a:hover .arrow { transform: translate(2px, -2px); }
 }
 
-.fill {
-    fill: currentColor;
+.socials a:focus-visible {
+    color: var(--primary);
+    outline: 1px solid currentColor;
+    outline-offset: 5px;
 }
 
+.socials a:focus-visible .arrow { transform: translate(2px, -2px); }
 
-/* Footer */
-
-footer {
-    padding: 26px 20px;
-
-    color: #777;
-
+.alias {
+    flex: none;
+    color: var(--muted);
     font-size: 12px;
-
-    text-align: center;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.5;
 }
 
+/* Progressive enhancement: without JavaScript, the overlay never appears. */
+.intro {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    overflow: hidden;
+    pointer-events: none;
+    background: var(--paper);
+}
 
-/* Mobile */
+.ink { display: block; width: 100%; height: 100%; }
+.intro-pending .intro { display: block; }
+.intro-pending .reveal { opacity: 0; }
+.intro-pending h1 { transform: translateY(10px); }
 
-@media (max-width: 600px) {
+.intro-reveal .reveal {
+    transition: opacity 440ms ease-out, transform 500ms cubic-bezier(.2,.65,.3,1);
+}
+.intro-reveal h1 { transition-delay: 30ms; }
+.intro-reveal .socials a { transition: opacity 380ms ease-out, color 200ms ease; }
+.intro-reveal .socials a:nth-child(1) { transition-delay: 65ms, 0ms; }
+.intro-reveal .socials a:nth-child(2) { transition-delay: 115ms, 0ms; }
+.intro-reveal .socials a:nth-child(3) { transition-delay: 165ms, 0ms; }
+.intro-reveal .alias { transition-delay: 100ms; }
 
-    .brand {
-        font-size: 18px;
-    }
+@media (max-width: 767px) {
+    :root { --gutter: 24px; }
+    .brand { font-size: 18px; }
+    .statement { padding-block: 24px 48px; }
+    h1 { font-size: clamp(32px, 8.8vw, 40px); max-width: 560px; }
+    .editorial-break { display: none; }
+    .socials { column-gap: 24px; }
+    .socials a { font-size: 13px; }
+    .bottom { align-items: flex-start; flex-direction: column; gap: 20px; }
+    .alias { align-self: flex-end; }
+}
 
-    h1 {
-        max-width: 400px;
+@media (max-height: 420px) and (orientation: landscape) {
+    :root { --gutter: 24px; }
+    .statement { padding-block: 20px 30px; }
+    h1 { font-size: clamp(32px, 5.5vw, 52px); }
+    .bottom { flex-direction: row; align-items: baseline; }
+}
 
-        font-size: clamp(30px, 10vw, 44px);
-    }
-
-    main {
-        gap: 32px;
-    }
-
-    nav {
-        gap: 14px;
-    }
-
-    nav a {
-        width: 48px;
-        height: 48px;
-    }
-
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+    .intro-pending .intro { display: none; }
+    .intro-pending .reveal { opacity: 1; }
+    .intro-pending h1 { transform: none; }
+    .socials a:hover .arrow, .socials a:focus-visible .arrow { transform: none; }
 }
